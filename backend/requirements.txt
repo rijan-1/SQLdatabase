@@ -1,0 +1,4 @@
+fastapi[all]==0.109.0
+pyJWT==2.8.0
+sqlalchemy==2.0.25
+passlib[bcrypt]==1.7.4
