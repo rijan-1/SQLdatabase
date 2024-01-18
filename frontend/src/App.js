@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react';
-import './App.css';
+import React, { useContext, useEffect, useState } from "react";
 
-function App() {
-  const [message, setMessage] = useState('');
+import {Register} from "./components/Register";
+
+
+import { UserContext } from "UserContext";
+
+const App = () => {
+  const [message, setMessage] = useState("");
+  const [token] = useContext(UserContext);
 
   const getWelcomeMessage = async () => {
     const requestOptions = {
@@ -26,12 +31,23 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {/* You can display the 'message' state here if needed */}
-      asdsa
-      {message && <p>{message}</p>}
-    </div>
+    <>
+
+      <div className="columns">
+        <div className="column"></div>
+        <div className="column m-5 is-two-thirds">
+          {!token &&(
+            <div className="columns">
+              <Register /> 
+            </div>
+          ) 
+           
+          }
+        </div>
+        <div className="column"></div>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
