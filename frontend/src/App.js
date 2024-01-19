@@ -1,53 +1,39 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import {Register} from "./components/Register";
-
-
-import { UserContext } from "UserContext";
-
+import './App.css'
+import {useEffect, useState} from 'react'
+import { Register } from './components/Register';
 const App = () => {
-  const [message, setMessage] = useState("");
-  const [token] = useContext(UserContext);
 
-  const getWelcomeMessage = async () => {
-    const requestOptions = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const response = await fetch("/api", requestOptions);
-    const data = await response.json();
+  const [message, setMessage] = useState('')
+  useEffect(()=>{
 
-    if (!response.ok) {
-      console.log("something messed up");
-    } else {
-      setMessage(data.message);
+  const getWelcomeMessage = async()=>{
+
+    const requestOptions ={
+      method: 'GET',
+      headers:{
+        'content-type':'application/json'
+      }
     }
-  };
+    const response = await fetch('http://localhost:8000/api', requestOptions)
+    const data = await response.json()
 
-  useEffect(() => {
-    getWelcomeMessage();
-  }, []);
-
+    if (!response.ok){
+      console.log('error while getting api')
+    }
+    else{
+    setMessage(data.idk)
+ } }
+  getWelcomeMessage()
+},[])
   return (
-    <>
+    <div>
 
-      <div className="columns">
-        <div className="column"></div>
-        <div className="column m-5 is-two-thirds">
-          {!token &&(
-            <div className="columns">
-              <Register /> 
-            </div>
-          ) 
-           
-          }
-        </div>
-        <div className="column"></div>
-      </div>
-    </>
-  );
+    
+    <h1>Hello world</h1>
+    <h1>{message}</h1>
+    <Register/>
+   </div>
+  )
 };
 
 export default App;
